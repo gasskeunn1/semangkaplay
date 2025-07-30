@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameOnX - Live Streaming</title>
+  <meta name="description" content="Tonton live streaming olahraga di GameOnX.">
+  <link rel="icon" href="assets/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    .live-label {
+      background: red;
+      color: white;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      animation: blink 1s infinite;
+      font-size: 0.75rem;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      z-index: 50;
+      background-color: #dc2626;
+      color: white;
+      padding: 0.75rem;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      display: none;
+    }
+    #scrollTopBtn.show {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-black text-white">
+
+  <!-- Header -->
+  <header class="text-center p-4 bg-gray-900 shadow-md">
+    <h1 class="text-3xl font-bold text-red-500">GameOnX</h1>
+    <p class="text-sm text-gray-300">Tonton live streaming olahraga favoritmu</p>
+  </header>
+
+  <!-- Video Player -->
+  <section id="playerSection" class="max-w-5xl mx-auto p-4">
+    <video id="videoPlayer" class="w-full rounded-lg shadow-lg" poster="" controls></video>
+
+    <!-- Tombol resolusi -->
+    <div class="mt-2 flex gap-2 justify-center text-sm">
+      <button onclick="setQuality('auto')" class="bg-gray-700 hover:bg-red-600 px-3 py-1 rounded">Auto</button>
+      <button onclick="setQualityByHeight(360)" class="bg-gray-700 hover:bg-red-600 px-3 py-1 rounded">360p</button>
+      <button onclick="setQualityByHeight(480)" class="bg-gray-700 hover:bg-red-600 px-3 py-1 rounded">480p</button>
+      <button onclick="setQualityByHeight(720)" class="bg-gray-700 hover:bg-red-600 px-3 py-1 rounded">720p</button>
+      <button onclick="setQualityByHeight(1080)" class="bg-gray-700 hover:bg-red-600 px-3 py-1 rounded">1080p</button>
+    </div>
+  </section>
+
+  <!-- Channel Grid -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <h2 class="text-xl font-bold mb-4 text-center text-red-500">Daftar Channel</h2>
+    <div id="channelContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+  </section>
+
+  <!-- Scroll Top Button -->
+  <button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+  <!-- Script untuk player & interaksi -->
+  <script>
+    const video = document.getElementById("videoPlayer");
+    video.muted = false;
+    let hls;
+
+    function loadStreamCustom(el) {
+      const src = el.dataset.src;
+      const poster = el.dataset.poster;
+      video.poster = poster;
+      video.controls = true;
+
+      if (Hls.isSupported()) {
+        if (hls) hls.destroy();
+        hls = new Hls();
+        hls.loadSource(src);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = src;
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+        }, { once: true });
+      }
+
+      document.getElementById('playerSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setQuality(level) {
+      if (!hls) return;
+      hls.currentLevel = level === 'auto' ? -1 : parseInt(level);
+    }
+
+    function setQualityByHeight(targetHeight) {
+      if (!hls || !hls.levels) return;
+      const levelIndex = hls.levels.findIndex(level => level.height === targetHeight);
+      if (levelIndex !== -1) {
+        hls.currentLevel = levelIndex;
+      } else {
+        alert("Resolusi tidak tersedia");
+      }
+    }
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("show");
+      } else {
+        scrollBtn.classList.remove("show");
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+
+  <!-- Script untuk memuat channel dari JSON -->
+  <script>
+    fetch('channels.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('channelContainer');
+        data.forEach(channel => {
+          const card = document.createElement('div');
+          card.className = 'bg-gray-800 rounded-md p-3 shadow-md cursor-pointer hover:bg-red-700 text-center';
+          card.setAttribute('data-src', channel.src);
+          card.setAttribute('data-poster', channel.poster);
+          card.onclick = function () { loadStreamCustom(this); };
+
+          const title = document.createElement('h3');
+          title.className = 'text-white font-semibold border-b border-gray-500 mb-2';
+          title.textContent = channel.title;
+
+          const time = document.createElement('p');
+          time.className = 'text-gray-300 text-sm';
+          time.setAttribute('data-start', channel.start);
+          time.textContent = formatDate(channel.start);
+
+          card.appendChild(title);
+          card.appendChild(time);
+          container.appendChild(card);
+        });
+
+        updateLiveLabels();
+      });
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleString("id-ID", {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit",
+        timeZone: "Asia/Jakarta"
+      }).replace(",", "") + " WIB";
+    }
+
+    function updateLiveLabels() {
+      const timeNow = new Date();
+      const pTags = document.querySelectorAll('[data-start]');
+      pTags.forEach(p => {
+        const start = new Date(p.dataset.start);
+        if (timeNow >= start) {
+          p.innerHTML = '<span class="live-label">LIVE</span>';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
