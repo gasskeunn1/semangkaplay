@@ -43,7 +43,7 @@
 
     .channel-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 1rem;
       margin-bottom: 2rem;
     }
@@ -65,12 +65,17 @@
 
     .channel-card img {
       width: 100%;
-      height: 120px;
+      height: 90px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 0.5rem;
     }
-
+    .channel-card h6 {
+      font-size: 0.85rem; /* Ukuran font lebih kecil dari default */
+      margin: 0;
+      color: #ffffffcc; /* Sedikit transparan agar lebih halus */
+    }
+    
     .qr-footer {
       text-align: center;
       margin-top: 2rem;
