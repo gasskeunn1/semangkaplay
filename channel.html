@@ -65,6 +65,22 @@
       width: 140px;
       height: 140px;
     }
+
+    .player-wrapper {
+      background-color: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 100%;
+      margin: 0 auto 2rem;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05); /* efek soft shadow */
+    }
+
+    iframe {
+     width: 100%;
+      aspect-ratio: 16/9;
+      border: none !important;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -87,6 +103,24 @@
     <img src="assets/qrdonasi.png" alt="QR Donasi" />
     <p>Support / Donasi</p>
   </div>
+
+<div style="text-align: center; margin-bottom: 1rem;">
+  <span style="
+    background-color: #21262d;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    box-shadow: 0 0 4px rgba(255, 0, 0, 0.7);
+  ">
+    🔴 LIVE STREAMING
+  </span>
+</div>
+
+<div class="player-wrapper">
+  <iframe id="iframePlayer" src="" allowfullscreen></iframe>
+</div>  
 
   <script>
     fetch("data/iframes.json")
