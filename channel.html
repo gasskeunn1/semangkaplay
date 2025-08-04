@@ -128,33 +128,58 @@
     <p>Support / Donasi</p>
   </div>
 
-  <script>
-    fetch("data/iframes.json")
-      .then(res => res.json())
-      .then(channels => {
-        const container = document.getElementById("channelList");
-        const iframe = document.getElementById("iframePlayer");
+<script>
+  fetch("data/iframes.json")
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Gagal memuat data channel.");
+      }
+      return res.json();
+    })
+    .then(channels => {
+      const container = document.getElementById("channelList");
+      const iframe = document.getElementById("iframePlayer");
 
-        channels.forEach((channel, index) => {
-          const card = document.createElement("div");
-          card.className = "channel-card";
-          card.innerHTML = 
-            <img src="${channel.poster}" alt="${channel.name}" />
-            <h6>${channel.name}</h6>
-          ;
-          card.addEventListener("click", () => {
-            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          });
+      channels.forEach((channel, index) => {
+        const card = document.createElement("div");
+        card.className = "channel-card";
+        card.innerHTML = `
+          <img src="${channel.poster}" alt="${channel.name}" />
+          <h6>${channel.name}</h6>
+        `;
 
-          container.appendChild(card);
-
-          // Load channel pertama sebagai default
-          if (index === 0) {
-            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
+        card.addEventListener("click", () => {
+          // Tangani src tanpa protokol
+          let src = channel.src;
+          if (src.startsWith("//")) {
+            src = "https:" + src;
+          } else if (!src.startsWith("http")) {
+            src = "https://" + src;
           }
+          iframe.src = src;
+          window.scrollTo({ top: 0, behavior: "smooth" });
         });
+
+        container.appendChild(card);
+
+        // Channel pertama otomatis diputar
+        if (index === 0) {
+          let defaultSrc = channel.src;
+          if (defaultSrc.startsWith("//")) {
+            defaultSrc = "https:" + defaultSrc;
+          } else if (!defaultSrc.startsWith("http")) {
+            defaultSrc = "https://" + defaultSrc;
+          }
+          iframe.src = defaultSrc;
+        }
       });
-  </script>
+    })
+    .catch(error => {
+      const container = document.getElementById("channelList");
+      container.innerHTML = `<div class="text-danger text-center">❌ Gagal memuat daftar channel. Silakan refresh halaman atau periksa koneksi.</div>`;
+      console.error("Gagal memuat JSON:", error);
+    });
+</script>
+
 </body>
 </html>
