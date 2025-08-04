@@ -48,13 +48,12 @@
       margin-bottom: 2rem;
     }
 
-    .channel-card {
-      background-color: #161b22;
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
+    .channel-card img {
+      width: 100%;
+      height: 120px; /* Atur tinggi tetap */
+      object-fit: cover; /* Potong agar proporsional tanpa merusak layout */
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
     }
 
     .channel-card:hover {
