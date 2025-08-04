@@ -1,12 +1,12 @@
 [ 
   {
     "name": "BeIN Sports 1",
-    "poster": "https://stmify.com/wp-content/uploads/2025/01/472-s.webp",
+    "poster": "https://stmify.com/wp-content/uploads/2025/01/472-s-1024x576.webp",
     "src": "//cdn.stmify.com/embed-free.php?id=Bein_Sports_1_US"
   },
   {
     "name": "BeIN Sports 2",
-    "poster": "https://stmify.com/wp-content/uploads/2025/01/473-s-300x169.webp",
+    "poster": "https://stmify.com/wp-content/uploads/2025/01/473-s-1024x576.webp",
     "src": "//cdn.stmify.com/embed-free.php?id=Bein_Sports_2_US"
   },  
   {
@@ -36,9 +36,19 @@
   },
   {
     "name": "ESPN2",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/espn2.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/296-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/zL7vB5kT3aO1gR8iX4nF6wP9dY2uHs"
   },
+   {
+    "name": "ESPN3",
+    "poster": "https://stmify.com/wp-content/uploads/2025/01/482-s-1024x576.webp",
+    "src": "//cdn.stmify.com/embed-free.php?id=ESPN_3"
+  },
+   {
+    "name": "ESPN4",
+    "poster": "https://stmify.com/wp-content/uploads/2025/01/483-s-1024x576.webp",
+    "src": "https://cdn.stmify.com/embed-free.php?id=ESPN_4"
+  }, 
   {
     "name": "ESPNU",
     "poster": "https://file.garden/aEH73g2_nCZCUuwA/espnu.png",
@@ -61,47 +71,47 @@
   },
   {
     "name": "Fox Soccer Plus",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/foxsoccp.png",
+    "poster": "https://i.imgur.com/BLYNHFQ.png",
     "src": "https://kleanplay.shop/embed/trAbIqUqIYicRlcHuri1LwenehacrowU"
   },
   {
     "name": "Fox Sports 501",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fox501.png",
+    "poster": "https://i.imgur.com/Sz2OnJI.png",
     "src": "https://kleanplay.shop/embed/2460d86d3892c5f73fb23a159ec07a73"
   },
   {
     "name": "Fox Sports 502",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fox502.png",
+    "poster": "https://i.imgur.com/86PvgWR.png",
     "src": "https://kleanplay.shop/embed/c781d5bf532f568fb2770c0a8afbf808"
   },
   {
     "name": "Fox Sports 503",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fox503.png",
+    "poster": "https://i.imgur.com/uoC0nSM.png",
     "src": "https://kleanplay.shop/embed/6700ac25ea0d4068bcfc953bf9ea0444"
   },
   {
     "name": "Fox Sports 504",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fox504.png",
+    "poster": "https://i.imgur.com/DeDOt5b.png",
     "src": "https://kleanplay.shop/embed/be3900a8819013eef554d9aeee14b9bd"
   },
   {
     "name": "Fox Sports 505",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fox505.png",
+    "poster": "https://i.imgur.com/LMMQmjH.png",
     "src": "https://kleanplay.shop/embed/58582ebdda51b171777a15c61e74a089"
   },
   {
     "name": "Fox Sports 506",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fox506.png",
+    "poster": "https://i.imgur.com/OQZKyOJ.png",
     "src": "https://kleanplay.shop/embed/ac0dfaf43b236054ea5ebe5862b68d00"
   },
   {
     "name": "FS1",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fs1.png",
+    "poster": "https://i.imgur.com/4IMCDzZ.png",
     "src": "https://kleanplay.shop/embed/j7xysrst3ytbc4h50of84mmbyrn4ba9v"
   },
   {
     "name": "FS2",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/fs2.png",
+    "poster": "https://i.imgur.com/Xp07Ukw.png",
     "src": "https://kleanplay.shop/embed/9bfdo7kxd45sst08hbuh6rwhkykmitwb"
   },
   {
@@ -121,7 +131,7 @@
   },
   {
     "name": "MUTV",
-    "poster": "https://mutv.manutd.com/assets/images/MUTV_logo_white.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/08/73-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/ebcdba09e8a64f24e07c4d9b67267753"
   },
   {
@@ -146,17 +156,17 @@
   },
   {
     "name": "NBC Sports Bay Area",
-    "poster": "https://file.garden/aEH73g2_nCZCUuwA/nbcbayarea.png",
+    "poster": "https://stmify.com/wp-content/uploads/2025/04/583-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/5411235d278f9abfce9db28c140374d5"
   },
   {
     "name": "NBC Sports Boston",
-    "poster": "https://media.nbcsportsboston.com/2023/04/Boston-Landmark.png?fit=3840%2C2160&quality=85&strip=all",
+    "poster": "https://stmify.com/wp-content/uploads/2025/03/582-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/DF01290A3852048FA5C6688724BCE1FA"
   },
   {
     "name": "NBC Sports Philadelphia",
-    "poster": "https://media.nbcsportsphiladelphia.com/2023/04/Philly-Landmark.png?fit=3840%2C2160&quality=85&strip=all",
+    "poster": "https://stmify.com/wp-content/uploads/2025/04/584-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/b46c64f505d77d9c3ba37c2f3037f0f3"
   },
   {
@@ -181,47 +191,47 @@
   },
   {
     "name": "Sky Sport 1 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/10/216-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/8f9b6c2d1e4a7890f3a5b1c8d7e6f4a3"
   },
   {
     "name": "Sky Sport 2 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/10/231-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
   },
   {
     "name": "Sky Sport 3 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/10/255-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
   },
   {
     "name": "Sky Sport 4 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/272-s-300x169.webp",
     "src": "https://kleanplay.shop/embed/c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8"
   },
   {
     "name": "Sky Sport 5 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/273-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d"
   },
   {
     "name": "Sky Sport 6 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/278-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/f1e2d3c4b5a698786543210fedcba987"
   },
   {
     "name": "Sky Sport 7 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/289-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"
   },
   {
     "name": "Sky Sport 8 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/305-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/8f9b6c2d1e4a7890f3a5b1c8d7e6f4a3"
   },
   {
     "name": "Sky Sport 9 NZ",
-    "poster": "https://stoppress.co.nz/wp-content/uploads/2025/02/SkySport.png",
+    "poster": "https://stmify.com/wp-content/uploads/2024/11/306-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/8f9b6c2d1e4a7890f3a5b1c8d7e6f4a3"
   },
   {
@@ -301,47 +311,47 @@
   },
   {
     "name": "TNT Sports 1",
-    "poster": "https://cdn.mos.cms.futurecdn.net/y3oPitXYAwGJnyTHFYo5qB-1200-80.jpeg",
+    "poster": "https://i.imgur.com/UbyRAPP.png",
     "src": "https://kleanplay.shop/embed/FrofUdRljoCLdruGUdR295IfisTlsW1w"
   },
   {
     "name": "TNT Sports 2",
-    "poster": "https://cdn.mos.cms.futurecdn.net/y3oPitXYAwGJnyTHFYo5qB-1200-80.jpeg",
+    "poster": "https://i.imgur.com/Gzw7ksq.png",
     "src": "https://kleanplay.shop/embed/c5phutHUkothlwRudRO8rosaS3B64ini"
   },
   {
     "name": "TNT Sports 3",
-    "poster": "https://cdn.mos.cms.futurecdn.net/y3oPitXYAwGJnyTHFYo5qB-1200-80.jpeg",
+    "poster": "https://i.imgur.com/8N0gtUI.png",
     "src": "https://kleanplay.shop/embed/SodrItO5WeQeFraDRoQa900eSw68I9LG"
   },
   {
     "name": "TNT Sports 4",
-    "poster": "https://cdn.mos.cms.futurecdn.net/y3oPitXYAwGJnyTHFYo5qB-1200-80.jpeg",
+    "poster": "https://i.imgur.com/irAdyHZ.png",
     "src": "https://kleanplay.shop/embed/8esiM7BRatIQ3cAdaxes34tesIbrOpOp"
   },
   {
     "name": "TSN 1",
-    "poster": "https://stmify.com/wp-content/uploads/2025/03/576-s-300x169.webp",
+    "poster": "https://stmify.com/wp-content/uploads/2025/03/576-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/4a1b2c3d5e6f7890a1b2c3d4e5f67890"
   },
   {
     "name": "TSN 2",
-    "poster": "https://stmify.com/wp-content/uploads/2025/03/577-s-300x169.webp",
+    "poster": "https://stmify.com/wp-content/uploads/2025/03/577-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/8b9c0d1e2f3a4b5c6d7e8f90a1b2c3d4"
   },
   {
     "name": "TSN 3",
-    "poster": "https://stmify.com/wp-content/uploads/2025/03/578-s-300x169.webp",
+    "poster": "https://stmify.com/wp-content/uploads/2025/03/578-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/e5f6a7b8c9d0e1f2a3b4c5d6e7f890a1"
   },
   {
     "name": "TSN 4",
-    "poster": "https://images.mlssoccer.com/image/private/t_editorial_landscape_8_desktop_mobile/mls-van-prd/v1tk44thr5u1p9eepefr.png",
+    "poster": "https://stmify.com/wp-content/uploads/2025/03/579-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8"
   },
   {
     "name": "TSN 5",
-    "poster": "https://images.mlssoccer.com/image/private/t_editorial_landscape_8_desktop_mobile/mls-van-prd/v1tk44thr5u1p9eepefr.png",
+    "poster": "https://stmify.com/wp-content/uploads/2025/03/580-s-1024x576.webp",
     "src": "https://kleanplay.shop/embed/8a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d"
   },
   {
