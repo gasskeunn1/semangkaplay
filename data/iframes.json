@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ABC TV",
+    "poster": "https://cdn.iview.abc.net.au/thumbs/i/X0_680b1678c94e5_1280.jpg",
+    "src": "https://kleanplay.shop/embed/7e4da2868f0546b7f269c36c85d8dfac"
+  },
+  {
+    "name": "Axs TV",
+    "poster": "https://file.garden/aEH73g2_nCZCUuwA/axs.png",
+    "src": "https://kleanplay.shop/embed/3271469af3414e0e303060c2251484c8"
+  }
+  {
+    "name": "Boomerang",
+    "poster": "https://github.com/tv-logo/tv-logos/blob/main/countries/united-states/hd/boomerang-hd-us.png?raw=true",
+    "src": "https://kleanplay.shop/embed/6f26a3f2f96ca70a26215b8351a36742"
+  },
+  {
+    "name": "Bravo",
+    "poster": "https://github.com/tv-logo/tv-logos/blob/main/countries/united-states/bravo-us.png?raw=true",
+    "src": "https://kleanplay.shop/embed/54a7a4af051a2835711c41160039a53a"
+  } 
+  {
+    "name": "CBS",
+    "poster": "https://file.garden/aEH73g2_nCZCUuwA/cbs.png",
+    "src": "https://kleanplay.shop/embed/v3weufn13faamb6eqbgd8myxv7zqe314"
+  },
+  {
+    "name": "Comet",
+    "poster": "https://github.com/tv-logo/tv-logos/blob/main/countries/united-states/comet-us.png?raw=true",
+    "src": "https://kleanplay.shop/embed/3271469af3414e0e303060c2251484c8"
+  }  
+]
