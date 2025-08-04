@@ -70,12 +70,13 @@
       border-radius: 8px;
       margin-bottom: 0.5rem;
     }
+
     .channel-card h6 {
-      font-size: 0.85rem; /* Ukuran font lebih kecil dari default */
+      font-size: 0.85rem;
       margin: 0;
-      color: #ffffffcc; /* Sedikit transparan agar lebih halus */
+      color: #ffffffcc;
     }
-    
+
     .qr-footer {
       text-align: center;
       margin-top: 2rem;
@@ -129,8 +130,18 @@
   </div>
 
   <script>
+    // Fungsi bantu: memastikan src valid
+    function normalizeSrc(src) {
+      if (src.startsWith("http")) return src;
+      if (src.startsWith("//")) return "https:" + src;
+      return "https://" + src;
+    }
+
     fetch("data/iframes.json")
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        return res.json();
+      })
       .then(channels => {
         const container = document.getElementById("channelList");
         const iframe = document.getElementById("iframePlayer");
@@ -143,17 +154,21 @@
             <h6>${channel.name}</h6>
           `;
           card.addEventListener("click", () => {
-            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
+            iframe.src = normalizeSrc(channel.src);
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
 
           container.appendChild(card);
 
-          // Load channel pertama sebagai default
           if (index === 0) {
-            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
+            iframe.src = normalizeSrc(channel.src);
           }
         });
+      })
+      .catch(err => {
+        console.error("Gagal memuat channel:", err);
+        const container = document.getElementById("channelList");
+        container.innerHTML = "<p class='text-danger text-center'>❌ Gagal memuat daftar channel. Silakan coba beberapa saat lagi.</p>";
       });
   </script>
 </body>
