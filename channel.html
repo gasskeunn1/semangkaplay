@@ -26,7 +26,7 @@
     }
 
     .player-wrapper {
-      background-color: transparent; /* Ubah dari hitam */
+      background-color: transparent;
       border-radius: 12px;
       overflow: hidden;
       max-width: 960px;
@@ -35,10 +35,10 @@
     }
 
     iframe {
-     width: 100%;
-     aspect-ratio: 16/9;
-     border: none;
-     display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
     }
 
     .channel-grid {
@@ -48,14 +48,6 @@
       margin-bottom: 2rem;
     }
 
-    .channel-card img {
-      width: 100%;
-      height: 120px; /* Atur tinggi tetap */
-      object-fit: cover; /* Potong agar proporsional tanpa merusak layout */
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-
     .channel-card {
       background-color: #161b22;
       padding: 1rem;
@@ -63,12 +55,20 @@
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s, border 0.2s;
-      border: 2px solid #ffffff22; /* Garis putih semi-transparan */
+      border: 2px solid #ffffff22;
     }
 
     .channel-card:hover {
       transform: scale(1.05);
-      border-color: #ffffff; /* Putih penuh saat hover */
+      border-color: #ffffff;
+    }
+
+    .channel-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
     }
 
     .qr-footer {
@@ -113,7 +113,7 @@
   </div>
 
   <div class="player-wrapper">
-    <iframe id="iframePlayer" src="" allowfullscreen></iframe>
+    <iframe id="iframePlayer" allowfullscreen allow="encrypted-media"></iframe>
   </div>
 
   <div class="channel-grid" id="channelList"></div>
@@ -125,8 +125,8 @@
 
   <script>
     fetch("data/iframes.json")
-      .then((res) => res.json())
-      .then((channels) => {
+      .then(res => res.json())
+      .then(channels => {
         const container = document.getElementById("channelList");
         const iframe = document.getElementById("iframePlayer");
 
@@ -138,7 +138,7 @@
             <h6>${channel.name}</h6>
           `;
           card.addEventListener("click", () => {
-            iframe.src = channel.src;
+            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
 
@@ -146,7 +146,7 @@
 
           // Load channel pertama sebagai default
           if (index === 0) {
-            iframe.src = channel.src;
+            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
           }
         });
       });
