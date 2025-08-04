@@ -70,13 +70,12 @@
       border-radius: 8px;
       margin-bottom: 0.5rem;
     }
-
     .channel-card h6 {
-      font-size: 0.85rem;
+      font-size: 0.85rem; /* Ukuran font lebih kecil dari default */
       margin: 0;
-      color: #ffffffcc;
+      color: #ffffffcc; /* Sedikit transparan agar lebih halus */
     }
-
+    
     .qr-footer {
       text-align: center;
       margin-top: 2rem;
@@ -130,54 +129,32 @@
   </div>
 
   <script>
-    const container = document.getElementById("channelList");
-    const iframe = document.getElementById("iframePlayer");
-
     fetch("data/iframes.json")
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Gagal memuat data channel");
-        }
-        return res.json();
-      })
+      .then(res => res.json())
       .then(channels => {
-        if (!Array.isArray(channels) || channels.length === 0) {
-          throw new Error("Daftar channel kosong atau rusak");
-        }
+        const container = document.getElementById("channelList");
+        const iframe = document.getElementById("iframePlayer");
 
         channels.forEach((channel, index) => {
           const card = document.createElement("div");
           card.className = "channel-card";
-          card.innerHTML = `
+          card.innerHTML = 
             <img src="${channel.poster}" alt="${channel.name}" />
             <h6>${channel.name}</h6>
-          `;
+          ;
           card.addEventListener("click", () => {
-            iframe.src = formatSrc(channel.src);
+            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
+
           container.appendChild(card);
 
-          // Load channel pertama
+          // Load channel pertama sebagai default
           if (index === 0) {
-            iframe.src = formatSrc(channel.src);
+            iframe.src = channel.src.startsWith("http") ? channel.src : "https:" + channel.src;
           }
         });
-      })
-      .catch(err => {
-        container.innerHTML = `
-          <div class="text-center text-danger">
-            <p><strong>⚠️ Gagal memuat daftar channel</strong></p>
-            <p>${err.message}</p>
-          </div>
-        `;
       });
-
-    function formatSrc(src) {
-        if (src.startsWith("http")) return src;
-        if (src.startsWith("//")) return "https:" + src;
-        return "https://" + src; // tanpa // juga aman
-      }
-    </script>
+  </script>
 </body>
 </html>
