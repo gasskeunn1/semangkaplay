@@ -130,21 +130,20 @@
   </div>
 
   <script>
-    // Fungsi bantu: memastikan src valid
-    function normalizeSrc(src) {
-      if (src.startsWith("http")) return src;
-      if (src.startsWith("//")) return "https:" + src;
-      return "https://" + src;
-    }
+    const container = document.getElementById("channelList");
+    const iframe = document.getElementById("iframePlayer");
 
     fetch("data/iframes.json")
       .then(res => {
-        if (!res.ok) throw new Error("HTTP error " + res.status);
+        if (!res.ok) {
+          throw new Error("Gagal memuat data channel");
+        }
         return res.json();
       })
       .then(channels => {
-        const container = document.getElementById("channelList");
-        const iframe = document.getElementById("iframePlayer");
+        if (!Array.isArray(channels) || channels.length === 0) {
+          throw new Error("Daftar channel kosong atau rusak");
+        }
 
         channels.forEach((channel, index) => {
           const card = document.createElement("div");
@@ -154,22 +153,31 @@
             <h6>${channel.name}</h6>
           `;
           card.addEventListener("click", () => {
-            iframe.src = normalizeSrc(channel.src);
+            iframe.src = formatSrc(channel.src);
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
-
           container.appendChild(card);
 
+          // Load channel pertama
           if (index === 0) {
-            iframe.src = normalizeSrc(channel.src);
+            iframe.src = formatSrc(channel.src);
           }
         });
       })
       .catch(err => {
-        console.error("Gagal memuat channel:", err);
-        const container = document.getElementById("channelList");
-        container.innerHTML = "<p class='text-danger text-center'>❌ Gagal memuat daftar channel. Silakan coba beberapa saat lagi.</p>";
+        container.innerHTML = `
+          <div class="text-center text-danger">
+            <p><strong>⚠️ Gagal memuat daftar channel</strong></p>
+            <p>${err.message}</p>
+          </div>
+        `;
       });
-  </script>
+
+    function formatSrc(src) {
+        if (src.startsWith("http")) return src;
+        if (src.startsWith("//")) return "https:" + src;
+        return "https://" + src; // tanpa // juga aman
+      }
+    </script>
 </body>
 </html>
