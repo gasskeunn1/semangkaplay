@@ -95,21 +95,30 @@
 
   function renderChannels(channels) {
     const container = document.getElementById("channelContainer");
+    container.innerHTML = ""; // clear isi lama
     const now = new Date();
 
-    channels.forEach(channel => {
-      const startTime = new Date(channel.start);
-      const isLive = now >= startTime;
+    // Tambahkan status isLive & waktu
+    channels.forEach(c => {
+      c.startTime = new Date(c.start);
+      c.isLive = now >= c.startTime;
+    });
 
+    // Urutkan: LIVE dulu, lalu berdasarkan waktu
+    channels.sort((a, b) => {
+      if (a.isLive !== b.isLive) return a.isLive ? -1 : 1;
+      return a.startTime - b.startTime;
+    });
+
+    channels.forEach(channel => {
       const card = document.createElement("div");
       card.className = "relative bg-gray-800 p-3 rounded-lg shadow-md channel-card overflow-hidden";
 
-      // Format waktu lokal user
-      const userTime = formatUserTimezone(startTime);
-      const showTime = isLive ? `<span class="text-xs font-bold text-red-500 animate-pulse">🔴 LIVE</span>` : `<span class="text-xs text-gray-400">${userTime}</span>`;
+      const showTime = channel.isLive
+        ? `<span class="text-xs font-bold text-red-500 animate-pulse">🔴 LIVE</span>`
+        : `<span class="text-xs text-gray-400">${formatUserTimezone(channel.startTime)}</span>`;
 
-      // LIVE badge
-      const liveBadge = isLive
+      const liveBadge = channel.isLive
         ? `<div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded animate-pulse shadow">🔴 LIVE</div>`
         : "";
 
@@ -125,11 +134,10 @@
   }
 
   function formatUserTimezone(date) {
-    const userOffset = new Date().getTimezoneOffset() / -60;
+    const offset = new Date().getTimezoneOffset() / -60;
     let label = "WIB";
-    if (userOffset === 9) label = "WIT";
-    else if (userOffset === 8) label = "WITA";
-    else if (userOffset === 7) label = "WIB";
+    if (offset === 8) label = "WITA";
+    else if (offset === 9) label = "WIT";
 
     return date.toLocaleString("id-ID", {
       weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit"
@@ -155,9 +163,7 @@
   }
 
   function setQuality(mode) {
-    if (mode === 'auto' && hls) {
-      hls.currentLevel = -1;
-    }
+    if (mode === 'auto' && hls) hls.currentLevel = -1;
   }
 
   function scrollToTop() {
@@ -168,6 +174,6 @@
     const btn = document.getElementById("scrollTopBtn");
     btn.classList.toggle("show", window.scrollY > 300);
   });
-</script>>
+</script>
 </body>
 </html>
