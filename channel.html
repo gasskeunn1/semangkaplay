@@ -60,10 +60,12 @@
 
     .channel-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       margin-bottom: 2rem;
       justify-items: center;
+      max-width: 1200px;
+      margin-inline: auto;
     }
 
     .channel-card {
@@ -79,8 +81,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      height: 240px;
+      justify-content: flex-start;
+      min-height: clamp(180px, 20vw, 260px);
     }
 
     .channel-card:hover {
@@ -90,10 +92,10 @@
 
     .channel-card img {
       width: 100%;
-      height: 120px;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       border-radius: 8px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
 
     .channel-card h6 {
