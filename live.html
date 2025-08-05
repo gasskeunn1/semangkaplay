@@ -55,7 +55,7 @@
   </div>
   <div class="flex justify-center mt-4 px-4" id="playerSection">
     <div class="w-full max-w-4xl">
-      <video id="videoPlayer" class="w-full rounded-md shadow-2xl bg-black glow-effect" poster="assets/logotvgonx.png"></video>
+      <video id="videoPlayer" class="w-full rounded-md shadow-2xl bg-black glow-effect" poster="assets/logotvgonx.png" controls></video>
     </div>
   </div>
   <div class="flex justify-center mt-4 gap-2 text-sm flex-wrap">
@@ -75,6 +75,72 @@
   <footer class="text-center text-xs text-gray-400 mt-auto py-4">
     © 2025 GameOnX
   </footer>
-  <script src="script.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("data/channels.json")
+        .then(res => res.json())
+        .then(data => renderChannels(data))
+        .catch(err => console.error("Gagal memuat JSON:", err));
+    });
+
+    function renderChannels(channels) {
+      const container = document.getElementById("channelContainer");
+      channels.forEach(channel => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-800 p-3 rounded-lg shadow-md channel-card";
+        card.innerHTML = `
+          <img src="${channel.poster}" alt="${channel.title}" class="w-full rounded-md mb-2">
+          <h3 class="text-sm font-semibold">${channel.title}</h3>
+          <p class="text-xs text-gray-400 mt-1">${formatWIB(channel.start)}</p>
+          <button onclick="playChannel('${channel.src}', '${channel.poster}')" class="mt-2 w-full bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded text-sm">Tonton</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function formatWIB(dateStr) {
+      if (!dateStr) return '';
+      const date = new Date(dateStr);
+      return date.toLocaleString("id-ID", {
+        weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta"
+      }) + " WIB";
+    }
+
+    let hls;
+    function playChannel(url, poster) {
+      const video = document.getElementById("videoPlayer");
+      if (hls) {
+        hls.destroy();
+      }
+      hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      video.poster = poster;
+      video.play();
+    }
+
+    function setQualityByHeight(height) {
+      if (hls && hls.levels) {
+        const level = hls.levels.findIndex(l => l.height === height);
+        if (level !== -1) hls.currentLevel = level;
+      }
+    }
+
+    function setQuality(mode) {
+      if (mode === 'auto' && hls) {
+        hls.currentLevel = -1;
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener("scroll", () => {
+      const btn = document.getElementById("scrollTopBtn");
+      btn.classList.toggle("show", window.scrollY > 300);
+    });
+  </script>
 </body>
 </html>
