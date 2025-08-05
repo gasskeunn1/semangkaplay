@@ -20,8 +20,12 @@
   <style>
     @media (min-width: 1024px) {
       #channelList {
-        max-height: calc(180px * 7 + 1.5rem); /* 7 kartu + gap */
+        max-height: calc(180px * 7 + 1.5rem); /* 7 baris */
         overflow-y: auto;
+        scrollbar-width: none; /* Firefox */
+      }
+      #channelList::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
       }
     }
   </style>
@@ -47,10 +51,10 @@
     <iframe id="iframePlayer" allowfullscreen allow="encrypted-media" class="w-full aspect-video border-none"></iframe>
   </div>
 
-  <!-- Channel List (7 rows max on desktop) -->
+  <!-- Channel Cards -->
   <div id="channelList" class="flex flex-wrap justify-center gap-4"></div>
 
-  <!-- QR Donasi Footer -->
+  <!-- Footer Donasi -->
   <div class="text-center mt-10">
     <img src="assets/qrdonasi.png" alt="QR Donasi" class="w-36 h-36 mx-auto">
     <p class="text-sm text-gray-400 mt-2">Support / Donasi</p>
@@ -65,24 +69,16 @@
 
         channels.forEach((channel, index) => {
           const card = document.createElement("div");
-          card.className = `
-            bg-[#161b22] rounded-xl p-3 w-[160px] min-h-[180px]
-            cursor-pointer hover:scale-105 transition
-            border border-white/10 hover:border-white
-            flex flex-col items-center
-          `.trim();
-
+          card.className = "bg-[#161b22] rounded-xl p-3 cursor-pointer hover:scale-105 transition border border-white/10 hover:border-white flex flex-col items-center w-40 sm:w-44 md:w-48 lg:w-52 xl:w-56";
           card.innerHTML = `
             <img src="${channel.poster}" alt="${channel.name}" class="w-full h-[100px] object-cover rounded mb-2" />
             <h6 class="text-xs text-white/80 text-center">${channel.name}</h6>
           `;
-
           card.onclick = () => {
             let src = channel.src.startsWith("//") ? "https:" + channel.src : channel.src;
             iframe.src = src;
             window.scrollTo({ top: 0, behavior: "smooth" });
           };
-
           container.appendChild(card);
 
           if (index === 0) {
