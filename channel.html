@@ -20,33 +20,43 @@
 </head>
 <body class="bg-[#0a1a2f] text-white p-4 font-sans">
 
+  <!-- HEADER -->
   <div class="px-4 pt-4">
-  <header class="flex justify-between items-center px-2 py- bg-gray-800 shadow-md rounded-md">
-    <a href="/">
-      <img src="assets/gameonx logo 3.png" alt="GameOnX Logo" class="h-12 w-auto sm:h-10 md:h-12 lg:h-16 hover:opacity-80 transition duration-300">
-    </a>    
-    <div class="flex gap-2">
-      <a href="https://chat.whatsapp.com/L9pViyD35Zq439t75avxq8" target="_blank" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold">Join Grup</a>
-      <a href="https://sociabuzz.com/fiqaz/donate" target="_blank" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold">Sawer</a>
-    </div>
-  </header>
+    <header class="flex justify-between items-center px-2 py-3 bg-gray-800 shadow-md rounded-md">
+      <a href="/">
+        <img src="assets/gameonx logo 3.png" alt="GameOnX Logo" class="h-12 w-auto sm:h-10 md:h-12 lg:h-16 hover:opacity-80 transition duration-300">
+      </a>
 
+      <!-- BUTTON GROUP -->
+      <div class="flex flex-col items-end gap-1">
+        <a href="https://chat.whatsapp.com/L9pViyD35Zq439t75avxq8" target="_blank" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold text-sm">Join Grup</a>
+        <a href="https://sociabuzz.com/fiqaz/donate" target="_blank" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold text-sm">Sawer</a>
+        <a href="/" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold text-sm hover:bg-gray-500 transition flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h5m4 0h5a1 1 0 001-1V10" />
+          </svg>
+          Beranda
+        </a>
+      </div>
+    </header>
+  </div>
 
+  <!-- LABEL -->
   <div class="text-center mt-4 mb-2">
-    <div class="inline-block bg-gradient-to-r from-gray-800 to-gray-700 px-2 py-1 rounded text-base font-bold text-white shadow-lg border border-gray-600 transition-transform duration-300 hover:scale-105">
+    <div class="inline-block bg-gradient-to-r from-gray-800 to-gray-700 px-3 py-1 rounded text-base font-bold text-white shadow-lg border border-gray-600">
       📺 CHANNEL TV SPORT
     </div>
   </div>
 
-
+  <!-- PLAYER -->
   <div class="max-w-5xl mx-auto mt-6 mb-6 rounded-xl overflow-hidden">
     <iframe id="iframePlayer" allowfullscreen allow="encrypted-media" class="w-full aspect-video border-none"></iframe>
   </div>
 
-
+  <!-- CHANNEL LIST -->
   <div class="max-w-screen-xl mx-auto grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-4 px-4" id="channelList"></div>
 
-
+  <!-- DONASI -->
   <div id="donasi" class="flex justify-center mt-20 px-4">
     <div class="bg-white p-2 rounded-md shadow-lg text-center">
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://sociabuzz.com/fiqaz/support" alt="QR Donasi" class="mx-auto mb-2" />
@@ -54,13 +64,12 @@
     </div>
   </div>
 
+  <!-- FOOTER -->
   <footer class="text-center text-xs text-gray-400 mt-auto py-4">
     © 2025 GameOnX
   </footer>
-  <script src="script.js"></script>
-</body>
-</html>
-  
+
+  <!-- SCRIPT -->
   <script>
     fetch("data/iframes.json")
       .then(res => res.json())
@@ -100,5 +109,6 @@
         console.error(error);
       });
   </script>
+
 </body>
 </html>
