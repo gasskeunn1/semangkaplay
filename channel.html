@@ -31,7 +31,9 @@
 
   <!-- LIVE Label -->
   <div class="text-center mb-4">
-    <span class="bg-[#0d1117] text-white border border-gray-600 px-4 py-1 rounded shadow text-sm font-semibold inline-block">📺 CHANNEL TV SPORT</span>
+    <span class="bg-[#0d1117] text-white border border-gray-600 px-4 py-1 rounded shadow text-sm font-semibold inline-block">
+      📺 CHANNEL TV SPORT
+    </span>
   </div>
 
   <!-- Player -->
@@ -40,7 +42,7 @@
   </div>
 
   <!-- Channel Grid -->
-  <div id="channelList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-center"></div>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="channelList"></div>
 
   <!-- Footer Donasi -->
   <div class="text-center mt-10">
@@ -48,6 +50,7 @@
     <p class="text-sm text-gray-400 mt-2">Support / Donasi</p>
   </div>
 
+  <!-- Script -->
   <script>
     fetch("data/iframes.json")
       .then(res => res.json())
@@ -57,16 +60,25 @@
 
         channels.forEach((channel, index) => {
           const card = document.createElement("div");
-          card.className = "bg-[#161b22] rounded-xl p-3 cursor-pointer hover:scale-105 transition border border-white/10 hover:border-white flex flex-col items-center justify-between h-[220px]";
-          card.innerHTML = `
-            <img src="${channel.poster}" alt="${channel.name}" class="w-full h-[110px] object-cover rounded mb-2" />
-            <h6 class="text-xs text-white/80 text-center">${channel.name}</h6>
+          card.className = `
+            bg-[#161b22] rounded-xl p-2 cursor-pointer hover:scale-105 transition 
+            border border-white/10 hover:border-white 
+            flex flex-col items-center 
+            w-full aspect-[16/9] max-w-[320px]
           `;
+
+          card.innerHTML = `
+            <img src="${channel.poster}" alt="${channel.name}" 
+                 class="w-full h-full object-cover rounded" />
+            <h6 class="text-xs text-white/80 text-center mt-2 truncate w-full">${channel.name}</h6>
+          `;
+
           card.onclick = () => {
             let src = channel.src.startsWith("//") ? "https:" + channel.src : channel.src;
             iframe.src = src;
             window.scrollTo({ top: 0, behavior: "smooth" });
           };
+
           container.appendChild(card);
 
           if (index === 0) {
