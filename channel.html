@@ -20,79 +20,64 @@
 </head>
 <body class="bg-[#0d1117] text-white p-4 font-sans">
   <!-- Header -->
-  <header class="bg-[#1e2631] rounded-lg p-4 mb-6 flex justify-between items-center">
-    <img src="assets/logotvgonx.png" alt="GameOnX Logo" class="h-10" />
-    <div class="flex gap-2 text-sm">
-      <a href="https://chat.whatsapp.com/..." target="_blank" class="bg-[#2c333d] px-3 py-1 rounded font-semibold">Join Grup</a>
-      <a href="https://saweria.co/..." target="_blank" class="bg-[#2c333d] px-3 py-1 rounded font-semibold">Sawer</a>
+  <header class="bg-[#1e2631] rounded-md px-4 py-3 flex justify-between items-center mb-6">
+    <img src="assets/logotvgonx.png" alt="GameOnX Logo" class="h-10">
+    <div class="flex gap-2">
+      <a href="https://chat.whatsapp.com/..." target="_blank" class="text-white font-bold text-sm bg-[#2c333d] px-3 py-1 rounded">Join Grup</a>
+      <a href="https://saweria.co/..." target="_blank" class="text-white font-bold text-sm bg-[#2c333d] px-3 py-1 rounded">Sawer</a>
     </div>
   </header>
 
-  <!-- Label -->
+  <!-- LIVE Label -->
   <div class="text-center mb-4">
-    <span class="inline-block bg-[#0d1117] border border-gray-600 text-white px-4 py-2 rounded shadow-md font-bold">
-      📺 CHANNEL TV SPORT
-    </span>
+    <span class="bg-[#0d1117] text-white border border-gray-600 px-4 py-1 rounded shadow text-sm font-semibold inline-block">📺 CHANNEL TV SPORT</span>
   </div>
 
   <!-- Player -->
-  <div class="max-w-screen-md mx-auto mb-6 rounded-lg overflow-hidden">
-    <iframe id="iframePlayer" class="w-full aspect-video rounded-md border border-gray-700" allowfullscreen allow="encrypted-media"></iframe>
+  <div class="max-w-5xl mx-auto mb-6 rounded-xl overflow-hidden">
+    <iframe id="iframePlayer" allowfullscreen allow="encrypted-media" class="w-full aspect-video border-none"></iframe>
   </div>
 
-  <!-- Grid Channel -->
-  <div id="channelList" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"></div>
+  <!-- Channel Grid -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="channelList"></div>
 
-  <!-- QR Footer -->
+  <!-- Footer Donasi -->
   <div class="text-center mt-10">
-    <img src="assets/qrdonasi.png" alt="QR Donasi" class="w-36 h-36 mx-auto mb-2" />
-    <p class="text-sm text-gray-400">Support / Donasi</p>
+    <img src="assets/qrdonasi.png" alt="QR Donasi" class="w-36 h-36 mx-auto">
+    <p class="text-sm text-gray-400 mt-2">Support / Donasi</p>
   </div>
 
   <script>
     fetch("data/iframes.json")
-      .then(res => {
-        if (!res.ok) throw new Error("Gagal memuat data channel.");
-        return res.json();
-      })
+      .then(res => res.json())
       .then(channels => {
         const container = document.getElementById("channelList");
         const iframe = document.getElementById("iframePlayer");
 
         channels.forEach((channel, index) => {
           const card = document.createElement("div");
-          card.className = "bg-[#161b22] border border-white/10 hover:border-white/30 rounded-xl overflow-hidden p-2 transition cursor-pointer flex flex-col items-center";
-          card.style.aspectRatio = "3/2"; // Menjaga proporsi
-
+          card.className = "bg-[#161b22] rounded-xl p-3 cursor-pointer hover:scale-105 transition border border-white/10 hover:border-white flex flex-col items-center min-h-[160px]";
           card.innerHTML = `
             <img src="${channel.poster}" alt="${channel.name}" class="w-full h-[100px] object-cover rounded mb-2" />
             <h6 class="text-xs text-white/80 text-center">${channel.name}</h6>
           `;
-
-          card.addEventListener("click", () => {
-            let src = channel.src;
-            if (src.startsWith("//")) src = "https:" + src;
-            else if (!src.startsWith("http")) src = "https://" + src;
+          card.onclick = () => {
+            let src = channel.src.startsWith("//") ? "https:" + channel.src : channel.src;
             iframe.src = src;
             window.scrollTo({ top: 0, behavior: "smooth" });
-          });
-
+          };
           container.appendChild(card);
 
           if (index === 0) {
-            let defaultSrc = channel.src;
-            if (defaultSrc.startsWith("//")) defaultSrc = "https:" + defaultSrc;
-            else if (!defaultSrc.startsWith("http")) defaultSrc = "https://" + defaultSrc;
+            let defaultSrc = channel.src.startsWith("//") ? "https:" + channel.src : channel.src;
             iframe.src = defaultSrc;
           }
         });
       })
       .catch(error => {
-        const container = document.getElementById("channelList");
-        container.innerHTML = `<div class="text-red-500 text-center">❌ Gagal memuat daftar channel.</div>`;
-        console.error("Gagal memuat JSON:", error);
+        document.getElementById("channelList").innerHTML = `<div class='text-red-500 text-center'>❌ Gagal memuat channel.</div>`;
+        console.error(error);
       });
   </script>
-
 </body>
 </html>
