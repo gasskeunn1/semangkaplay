@@ -29,56 +29,119 @@
     .channel-card:hover { box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), 0 0 24px rgba(239, 68, 68, 0.4); }
     #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 50; background-color: #1f2937; border-radius: 9999px; padding: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: opacity 0.3s ease; }
     #scrollTopBtn.show { display: block; opacity: 1; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    .animate-pulse { animation: pulse 1s infinite; }
   </style>
+
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col relative">
-  <!-- Konten sebelumnya tidak berubah -->
+  <button id="scrollTopBtn" onclick="scrollToTop()" class="hover:bg-gray-700">
+    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+  <div class="px-4 pt-4">
+    <header class="flex justify-between items-center px-2 py- bg-gray-800 shadow-md rounded-md">
+      <a href="/">
+        <img src="assets/gameonx logo 3.png" alt="GameOnX Logo" class="h-12 w-auto sm:h-10 md:h-12 lg:h-16 hover:opacity-80 transition duration-300">
+      </a>
+      <div class="flex gap-2 text-sm">
+        <a href="https://chat.whatsapp.com/L9pViyD35Zq439t75avxq8" target="_blank" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold">Join Grup</a>
+        <a href="https://sociabuzz.com/fiqaz/donate" target="_blank" class="bg-gray-600 px-3 py-1 rounded-lg font-semibold">Sawer</a>
+      </div>
+    </header>
+  </div>
+  <div class="text-center mt-4 mb-2">
+    <div class="inline-block bg-gradient-to-r from-gray-800 to-gray-700 px-2 py-1 rounded text-lg font-bold text-white shadow-lg border border-gray-600 transition-transform duration-300 hover:scale-105">
+      🔴LIVE STREAMING
+    </div>
+  </div>
+  <div class="flex justify-center mt-4 px-4" id="playerSection">
+    <div class="w-full max-w-4xl">
+      <video id="videoPlayer" class="w-full rounded-md shadow-2xl bg-black glow-effect" poster="assets/logotvgonx.png" controls></video>
+    </div>
+  </div>
+  <div class="flex justify-center mt-4 gap-2 text-sm flex-wrap">
+    <button onclick="setQuality('auto')" class="bg-transparent border border-white/30 text-white text-xs px-1.5 py-0.5 rounded hover:bg-white/20">Auto</button>
+    <button onclick="setQualityByHeight(360)" class="bg-transparent border border-white/30 text-white text-xs px-1.5 py-0.5 rounded hover:bg-white/20">360p</button>
+    <button onclick="setQualityByHeight(540)" class="bg-transparent border border-white/30 text-white text-xs px-1.5 py-0.5 rounded hover:bg-white/20">540p</button>
+    <button onclick="setQualityByHeight(720)" class="bg-transparent border border-white/30 text-white text-xs px-1.5 py-0.5 rounded hover:bg-white/20">720p</button>
+    <button onclick="setQualityByHeight(1080)" class="bg-transparent border border-white/30 text-white text-xs px-1.5 py-0.5 rounded hover:bg-white/20">1080p</button>
+  </div>
+  <div id="channelContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 mt-10 max-w-7xl mx-auto"></div>
+  <div id="donasi" class="flex justify-center mt-20 px-4">
+    <div class="bg-white p-2 rounded-md shadow-lg text-center">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://sociabuzz.com/fiqaz/support" alt="QR Donasi" class="mx-auto mb-2" />
+      <p class="text-black font-semibold">Support/Sawer</p>
+    </div>
+  </div>
+  <footer class="text-center text-xs text-gray-400 mt-auto py-4">
+    © 2025 GameOnX
+  </footer>
+
   <script>
-    fetch('data/channels.json')
-      .then(res => res.json())
-      .then(data => {
-        data.sort((a, b) => new Date(a.start) - new Date(b.start));
-        const container = document.getElementById('channelContainer');
-        const now = new Date();
-        data.forEach(item => {
-          const startDate = new Date(item.start);
-          const offset = startDate.getTimezoneOffset() * 60000;
-          const localTime = new Date(startDate.getTime() - offset);
-          const options = { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' };
-          const formatter = new Intl.DateTimeFormat('id-ID', options);
-          const timeStr = formatter.format(localTime);
-          const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          let zona = 'WIB';
-          if (zone.includes('Makassar') || zone.includes('Ujung') || zone.includes('Denpasar')) zona = 'WITA';
-          else if (zone.includes('Jayapura')) zona = 'WIT';
-          const isLive = now >= startDate;
-          const card = document.createElement('div');
-          card.className = 'relative channel-card cursor-pointer rounded-lg overflow-hidden shadow-lg bg-gray-800 hover:bg-gray-700 transition duration-300';
-          card.innerHTML = `
-            ${isLive ? '<div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded animate-pulse">🔴 LIVE</div>' : ''}
-            <img src="${item.poster}" alt="${item.title}" class="w-full h-40 object-cover">
-            <div class="p-3">
-              <h2 class="text-sm font-semibold mb-1">${item.title}</h2>
-              <p class="text-xs text-gray-300">${isLive ? '' : timeStr + ' ' + zona}</p>
-            </div>
-          `;
-          card.addEventListener('click', () => {
-            const video = document.getElementById('videoPlayer');
-            if (Hls.isSupported()) {
-              const hls = new Hls();
-              hls.loadSource(item.src);
-              hls.attachMedia(video);
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-              video.src = item.src;
-            }
-            video.play();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          });
-          container.appendChild(card);
-        });
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("data/channels.json")
+        .then(res => res.json())
+        .then(data => renderChannels(data))
+        .catch(err => console.error("Gagal memuat JSON:", err));
+    });
+
+    function renderChannels(channels) {
+      const container = document.getElementById("channelContainer");
+      channels.forEach(channel => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-800 p-3 rounded-lg shadow-md channel-card";
+        card.innerHTML = `
+          <img src="${channel.poster}" alt="${channel.title}" class="w-full rounded-md mb-2">
+          <h3 class="text-sm font-semibold">${channel.title}</h3>
+          <p class="text-xs text-gray-400 mt-1">${formatWIB(channel.start)}</p>
+          <button onclick="playChannel('${channel.src}', '${channel.poster}')" class="mt-2 w-full bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded text-sm">Tonton</button>
+        `;
+        container.appendChild(card);
       });
+    }
+
+    function formatWIB(dateStr) {
+      if (!dateStr) return '';
+      const date = new Date(dateStr);
+      return date.toLocaleString("id-ID", {
+        weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta"
+      }) + " WIB";
+    }
+
+    let hls;
+    function playChannel(url, poster) {
+      const video = document.getElementById("videoPlayer");
+      if (hls) {
+        hls.destroy();
+      }
+      hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      video.poster = poster;
+      video.play();
+    }
+
+    function setQualityByHeight(height) {
+      if (hls && hls.levels) {
+        const level = hls.levels.findIndex(l => l.height === height);
+        if (level !== -1) hls.currentLevel = level;
+      }
+    }
+
+    function setQuality(mode) {
+      if (mode === 'auto' && hls) {
+        hls.currentLevel = -1;
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener("scroll", () => {
+      const btn = document.getElementById("scrollTopBtn");
+      btn.classList.toggle("show", window.scrollY > 300);
+    });
   </script>
 </body>
 </html>
