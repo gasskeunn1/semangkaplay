@@ -17,6 +17,14 @@
   <meta name="twitter:image" content="https://gameonx.my.id/assets/preview.jpg">
   <meta name="twitter:url" content="https://gameonx.my.id">
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <style>
+    @media (min-width: 1024px) {
+      #channelList {
+        max-height: calc(180px * 7 + 1.5rem); /* 7 kartu + gap */
+        overflow-y: auto;
+      }
+    }
+  </style>
 </head>
 <body class="bg-[#0d1117] text-white p-4 font-sans">
 
@@ -39,10 +47,10 @@
     <iframe id="iframePlayer" allowfullscreen allow="encrypted-media" class="w-full aspect-video border-none"></iframe>
   </div>
 
-  <!-- Channel Grid -->
-  <div class="grid grid-cols-2 gap-4 justify-center sm:grid-cols-2" id="channelList"></div>
+  <!-- Channel List (7 rows max on desktop) -->
+  <div id="channelList" class="flex flex-wrap justify-center gap-4"></div>
 
-  <!-- Footer Donasi -->
+  <!-- QR Donasi Footer -->
   <div class="text-center mt-10">
     <img src="assets/qrdonasi.png" alt="QR Donasi" class="w-36 h-36 mx-auto">
     <p class="text-sm text-gray-400 mt-2">Support / Donasi</p>
@@ -88,6 +96,5 @@
         console.error(error);
       });
   </script>
-
 </body>
 </html>
